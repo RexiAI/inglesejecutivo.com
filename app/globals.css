@@ -1,0 +1,34 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Replica of the source site's custom <style> block (inglesejecutivo.com).
+ *
+ * Cascade order is load-bearing for parity: on the live site the Tailwind
+ * CDN injects its utilities AFTER the custom styles, so the `.font-serif`
+ * utility (Tailwind's ui-serif/Georgia stack) overrides the custom
+ * `.font-serif { Playfair Display }` rule, while class-less h1/h2/h3 still
+ * get Playfair from the element selector. These @layer base rules sit below
+ * utilities in a real Tailwind build, reproducing that exact behavior:
+ *
+ *   h1 (no class)            -> Playfair Display
+ *   h2/h3 with .font-serif   -> ui-serif / Georgia
+ *   h3 without .font-serif   -> Playfair Display
+ *   h3 with .font-sans class -> Inter (source used an inline style; the
+ *                               class keeps house rules and renders the same)
+ *
+ * Do not "fix" .font-serif to Playfair — see DESIGN.md §Typography
+ * (rendered font matrix).
+ */
+@layer base {
+  body {
+    @apply bg-sand-100 font-sans text-slate-800;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-playfair), serif;
+  }
+}
