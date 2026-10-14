@@ -7,6 +7,15 @@ on:
     branches: [main]
   workflow_dispatch:
 
+# The pinned reusable workflow declares `packages: write` (GHCR push on main).
+# A called workflow can never exceed the caller's token permissions, and this
+# org's default GITHUB_TOKEN is read-only — without this block every run dies
+# as a startup_failure ("requesting 'packages: write', but is only allowed
+# 'packages: read'").
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   frontend-ci:
     uses: RexiAI/my-engineering-standards/.github/workflows/ci-nextjs.yml@21046d96796467f8238d6d613ce3a552bf3fced0 # pinned; bump deliberately, never track a branch
