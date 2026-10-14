@@ -1,0 +1,12 @@
+node_modules
+.next
+coverage
+.git
+.githooks
+.github
+.standards
+.opencode
+.firecrawl
+.playwright-mcp
+config
+tests
