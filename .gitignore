@@ -1,3 +1,21 @@
 
 # Per-machine direnv file (spec 025): never committed.
 .envrc
+
+# Dependencies / builds
+node_modules/
+.next/
+out/
+build/
+dist/
+coverage/
+*.tsbuildinfo
+.vercel/
+
+# Env files (never commit secrets)
+.env
+.env.*
+!.env.example
+
+# Agent scratch
+.playwright-mcp/
