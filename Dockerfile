@@ -17,7 +17,10 @@ FROM node:22-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
-RUN addgroup -g 1000 nodejs && adduser -u 1000 -G nodejs -S nextjs
+# node:*-alpine already ships a `node` user/group at uid/gid 1000, so explicit
+# 1000 ids fail with "addgroup: gid '1000' in use". Use the official Next.js
+# Dockerfile's 1001 ids with busybox -S (system, no password prompt).
+RUN addgroup -S -g 1001 nodejs && adduser -S -u 1001 -G nodejs nextjs
 COPY --from=build /app/public ./public
 COPY --from=build --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=build --chown=nextjs:nodejs /app/.next/static ./.next/static
