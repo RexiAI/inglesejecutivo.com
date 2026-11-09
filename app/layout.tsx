@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Analytics } from '@vercel/analytics/next';
 import { Inter, Playfair_Display } from 'next/font/google';
 import './globals.css';
 
@@ -32,6 +33,7 @@ export default function RootLayout({
         className={`flex min-h-screen flex-col justify-between ${inter.variable} ${playfairDisplay.variable}`}
       >
         {children}
+        <Analytics />
       </body>
     </html>
   );
